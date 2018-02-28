@@ -282,10 +282,12 @@ InitMethod::Config initTCPMulticast(std::string group_name, rank_type world_size
         std::string master_address;
         std::tie(master_address, config.public_address) =
           discoverMaster(master_msg.addresses, master_msg.port);
-        config.worker = {
-          .master_addr = master_address,
-          .master_port = master_msg.port,
-        };
+//        config.worker = {
+//          .master_addr = master_address,
+//          .master_port = master_msg.port,
+//        };
+          config.worker.master_addr = master_address;
+          config.worker.master_port = master_msg.port;
       }
       break;
     }

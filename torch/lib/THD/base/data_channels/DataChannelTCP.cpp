@@ -76,20 +76,33 @@ DataChannelTCP::DataChannelTCP(InitMethod::Config config, int timeout)
     _socket = config.master.listen_socket;
     _port = config.master.listen_port;
 
-    _processes[0] = {
-      .rank = 0,
-      .address = "",
-      .port = 0,
-      .socket = -1,
-    };
+//    _processes[0] = {
+//      .rank = 0,
+//      .address = "",
+//      .port = 0,
+//      .socket = -1,
+//    };
+//
+  _processes[0].rank = 0;
+  _processes[0].address = "";
+  _processes[0].port = 0;
+  _processes[0].socket = -1;
+
   } else { // WORKER
     // add master
-    _processes[0] = {
-      .rank = 0,
-      .address = config.worker.master_addr,
-      .port = config.worker.master_port,
-      .socket = -1,
-    };
+
+//    _processes[0] = {
+//      .rank = 0,
+//      .address = config.worker.master_addr,
+//      .port = config.worker.master_port,
+//      .socket = -1,
+//    };
+
+  _processes[0].rank = 0;
+  _processes[0].address = config.worker.master_addr;
+  _processes[0].port = config.worker.master_port;
+  _processes[0].socket = -1;
+
   }
 }
 
@@ -125,12 +138,18 @@ bool DataChannelTCP::initWorker() {
     port_type p_port = recv_value<port_type>(master.socket);
     std::string p_address = recv_string(master.socket);
 
-    _processes[p_rank] = {
-      .rank = p_rank,
-      .address = p_address,
-      .port = p_port,
-      .socket = -1,
-    };
+//    _processes[p_rank] = {
+//      .rank = p_rank,
+//      .address = p_address,
+//      .port = p_port,
+//      .socket = -1,
+//    };
+
+  _processes[p_rank].rank = p_rank;
+  _processes[p_rank].address = p_address;
+  _processes[p_rank].port = p_port;
+  _processes[p_rank].socket = -1;
+
   }
 
   /*
@@ -190,12 +209,19 @@ bool DataChannelTCP::initMaster() {
       );
     }
 
-    _processes[p_rank] = {
-      .rank = p_rank,
-      .address = p_address,
-      .port = p_port,
-      .socket = p_socket,
-    };
+//    _processes[p_rank] = {
+//      .rank = p_rank,
+//      .address = p_address,
+//      .port = p_port,
+//      .socket = p_socket,
+//    };
+
+  _processes[p_rank].rank = p_rank;
+  _processes[p_rank].address = p_address;
+  _processes[p_rank].port = p_port;
+  _processes[p_rank].socket = p_socket;
+
+
   }
 
   // send informations about processes to all workers

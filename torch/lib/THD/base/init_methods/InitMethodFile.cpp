@@ -231,10 +231,12 @@ InitMethod::Config initFile(std::string file_path, rank_type world_size,
 
     std::string master_address;
     std::tie(master_address, config.public_address) = discoverMaster(master_addrs, master_port);
-    config.worker = {
-      .master_addr = master_address,
-      .master_port = master_port,
-    };
+//    config.worker = {
+//      .master_addr = master_address,
+//      .master_port = master_port,
+//    };
+    config.worker.master_addr = master_address;
+    config.worker.master_port = master_port;
   }
 
   return config;
